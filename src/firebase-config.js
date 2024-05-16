@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -10,6 +10,16 @@ const firebaseConfig = {
 	appId: '1:388315537513:web:8ea23fd8fd801732d382f8',
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+let firebaseApp;
 
-export const authentication = getAuth(firebaseApp);
+if (!getApps().length) {
+	console.log('Initializing Firebase app...');
+	firebaseApp = initializeApp(firebaseConfig);
+} else {
+	console.log('Firebase app already initialized');
+	firebaseApp = getApp();
+}
+
+const authentication = getAuth(firebaseApp);
+
+export { authentication };
