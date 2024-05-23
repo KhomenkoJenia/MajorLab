@@ -1,25 +1,15 @@
-import { getApp, getApps, initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDqcd7UQp3YJKtJmQmQo_EJ9B8fw8OKq0Q',
-	authDomain: 'major-labl-5f66e.firebaseapp.com',
-	projectId: 'major-labl-5f66e',
-	storageBucket: 'major-labl-5f66e.appspot.com',
-	messagingSenderId: '388315537513',
-	appId: '1:388315537513:web:8ea23fd8fd801732d382f8',
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-let firebaseApp;
+const firebaseApp = initializeApp(firebaseConfig);
 
-if (!getApps().length) {
-	console.log('Initializing Firebase app...');
-	firebaseApp = initializeApp(firebaseConfig);
-} else {
-	console.log('Firebase app already initialized');
-	firebaseApp = getApp();
-}
-
-const authentication = getAuth(firebaseApp);
-
-export { authentication };
+export const authentication = getAuth(firebaseApp);
