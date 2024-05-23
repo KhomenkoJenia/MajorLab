@@ -1,4 +1,5 @@
-import { initializeApp } from 'firebase/app';
+// firebaseClient.js
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -10,6 +11,14 @@ const firebaseConfig = {
 	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+let firebaseApp;
 
-export const authentication = getAuth(firebaseApp);
+if (!getApps().length) {
+	firebaseApp = initializeApp(firebaseConfig);
+} else {
+	firebaseApp = getApp();
+}
+
+const auth = getAuth(firebaseApp);
+
+export { auth, firebaseApp };
