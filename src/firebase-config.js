@@ -1,5 +1,4 @@
-// firebaseClient.js
-import { getApp, getApps, initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -11,11 +10,6 @@ const firebaseConfig = {
 	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-let app;
-if (typeof window !== 'undefined') {
-	app = initializeApp(firebaseConfig);
-}
+const firebaseApp = initializeApp(firebaseConfig);
 
-const authentication = app ? getAuth(app) : null;
-
-export { authentication };
+export const authentication = getAuth(firebaseApp);
